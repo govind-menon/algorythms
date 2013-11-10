@@ -4,8 +4,8 @@ import java.util.List;
 
 public class LZW {
 
-	public static String toBinary(int n,int wordSize) {
-		int i;
+	public static String toBinary(long n,long wordSize) {
+		long i;
 		String res = "";
 		for(i=0;i<wordSize;i++)
 		{
@@ -21,43 +21,43 @@ public class LZW {
 		String input = "";
 		String output = "";
 		String buffer;
-		int wordSize;
-		int i,j,k=1;
+		long wordSize;
+		long i,j,k=1;
 		
 		dictionary.add("#");
 		
 		input = FileReader.readFile(args[0]);
 		
-		for(i=0;i<26;i++)
-			dictionary.add(String.valueOf((char)(i+65)));
+		for(i=0;i<256;i++)
+			dictionary.add(String.valueOf((char)(i)));
 
 		i=0;
 		
 		while(i<input.length()) {
-			wordSize =(int) Math.ceil( Math.log(dictionary.size()) / Math.log(2)) ;
+			wordSize =(long) Math.ceil( Math.log(dictionary.size()) / Math.log(2)) ;
 			j = i;
 			buffer = "";
 
 			while(j<input.length()) {
 		
-				if(!dictionary.contains(buffer + input.charAt(j)))
+				if(!dictionary.contains(buffer + input.charAt((int)j)))
 					break;
-				buffer = buffer + input.charAt(j);
+				buffer = buffer + input.charAt((int)j);
 				j =j +1;
 			}
 
 			output += toBinary(dictionary.indexOf(buffer),wordSize);
 			if (j<input.length())
-				dictionary.add(buffer + input.charAt(j));
+				dictionary.add(buffer + input.charAt((int)j));
 			i = j;
 
 		}
 		
-		int inputLength = input.length();
+		long inputLength = input.length();
 		
-		int inputSymbolSize = (int) Math.ceil( Math.log(26) / Math.log(2));
+		long inputSymbolSize = (long) Math.ceil( Math.log(26) / Math.log(2));
 
-		int inputSize = inputSymbolSize*inputLength;
+		long inputSize = inputSymbolSize*inputLength;
 
 		System.out.println("Unencoded length = " + inputLength + " * " + inputSymbolSize + " = " + inputSize );
 		
@@ -65,7 +65,10 @@ public class LZW {
 		
 		System.out.println("Percentage compression achieved = " + ((inputSize - output.length())*1.0 / inputSize) *100 );
 
-		System.out.println(output);
+		//System.out.println(output);
+
+		//System.out.println(dictionary);
+		
 			
 	}
 }
