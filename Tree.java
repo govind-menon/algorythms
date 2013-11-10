@@ -7,7 +7,7 @@ class Tree {
 
     public Tree() {
         this.head = null;
-        compressedTable = new HashMap<String, String>();
+        this.compressedTable = new HashMap<String, String>();
     }
 
     public Node insert(Node node1, Node node2) {
