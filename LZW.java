@@ -1,6 +1,7 @@
 import java.io.*;
 import java.lang.Math.*;
 import java.util.*;
+
 public class LZW {
 
 	public static String toBinary(int n,int wordSize) {
@@ -14,14 +15,38 @@ public class LZW {
 		}
 		return new StringBuilder(res).reverse().toString();
 	}
+	
+	public static String readFile(String filename){
+		String inputStr="";
+		String currentLine;
+		BufferedReader br=null;
+		try{
+			br=new BufferedReader(new FileReader(filename));
+			while((currentLine=br.readLine())!=null){
+				inputStr=inputStr+currentLine;
+			}
+		} catch (IOException e) {
+			System.out.println("Error in file reading!");
+		}
+		finally{
+			try {
+				br.close();
+			} catch (IOException e) {
+				System.out.println("Error closing!");
+			}
+		}
+		return inputStr;
+	}
 
 	public static void main(String[] args) throws IOException {
 		List dictionary = new ArrayList();
-		String input = "TOBEORNOTTOBEORTOBEORNOT";
+		String input = "";
 		String output = "";
 		String buffer;
 		int wordSize;
 		int i,j;
+		
+		input = readFile(args[0]);
 		
 		for(i=0;i<26;i++)
 			dictionary.add(String.valueOf((char)(i+65)));
