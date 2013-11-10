@@ -3,7 +3,17 @@ import java.util.List;
 
 public class LZW {
 
-	private String toBinary(long n,long wordSize) {
+    private List dictionary;
+
+    public LZW(){
+        this.dictionary = new ArrayList();
+        this.dictionary.add("#");
+
+        for(int i=0;i<256;i++)
+            this.dictionary.add(String.valueOf((char)(i)));
+    }
+
+    private String toBinary(long n,long wordSize) {
 		long i;
 		String res = "";
 		for(i=0;i<wordSize;i++)
@@ -16,19 +26,9 @@ public class LZW {
 	}
 
     public String compress(String input) {
-		List dictionary = new ArrayList();
-		String output = "";
-		String buffer;
-		long wordSize;
-		long i,j,k=1;
-		
-		dictionary.add("#");
-		
-		for(i=0;i<256;i++)
-			dictionary.add(String.valueOf((char)(i)));
+		String output = "", buffer;
+		long i=0,j, wordSize;
 
-		i=0;
-		
 		while(i<input.length()) {
 			wordSize =(long) Math.ceil( Math.log(dictionary.size()) / Math.log(2)) ;
 			j = i;
@@ -48,23 +48,8 @@ public class LZW {
 			i = j;
 
 		}
-		
-		long inputLength = input.length();
-		
-		long inputSymbolSize = (long) Math.ceil( Math.log(256) / Math.log(2));
-
-		long inputSize = inputSymbolSize*inputLength;
-
-		System.out.println("Unencoded length = " + inputLength + " * " + inputSymbolSize + " = " + inputSize );
-		
-		System.out.println("Encoded length = " + output.length());
-		
-		System.out.println("Percentage compression achieved = " + ((inputSize - output.length())*1.0 / inputSize) *100 );
-
-		//System.out.println(output);
-
-		//System.out.println(dictionary);
 		return output;
 			
 	}
+
 }
