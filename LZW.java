@@ -14,15 +14,8 @@ public class LZW {
     }
 
     private String toBinary(long n,long wordSize) {
-		long i;
-		String res = "";
-		for(i=0;i<wordSize;i++)
-		{
-			res = res + String.valueOf(n % 2);
-			n = n/2;
-
-		}
-		return new StringBuilder(res).reverse().toString();
+		String res = Integer.toBinaryString((int)n),buffer = "";
+		return String.format("%"+ (int)(wordSize) + "s",res).replace(' ','0');
 	}
 
     public String compress(String input) {
