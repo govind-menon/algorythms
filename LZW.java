@@ -1,10 +1,9 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LZW {
 
-	public static String toBinary(long n,long wordSize) {
+	private String toBinary(long n,long wordSize) {
 		long i;
 		String res = "";
 		for(i=0;i<wordSize;i++)
@@ -16,17 +15,14 @@ public class LZW {
 		return new StringBuilder(res).reverse().toString();
 	}
 
-    public static void main(String[] args) throws IOException {
+    public String compress(String input) {
 		List dictionary = new ArrayList();
-		String input = "";
 		String output = "";
 		String buffer;
 		long wordSize;
 		long i,j,k=1;
 		
 		dictionary.add("#");
-		
-		input = FileReader.readFile(args[0]);
 		
 		for(i=0;i<256;i++)
 			dictionary.add(String.valueOf((char)(i)));
@@ -55,7 +51,7 @@ public class LZW {
 		
 		long inputLength = input.length();
 		
-		long inputSymbolSize = (long) Math.ceil( Math.log(26) / Math.log(2));
+		long inputSymbolSize = (long) Math.ceil( Math.log(256) / Math.log(2));
 
 		long inputSize = inputSymbolSize*inputLength;
 
@@ -68,7 +64,7 @@ public class LZW {
 		//System.out.println(output);
 
 		//System.out.println(dictionary);
-		
+		return output;
 			
 	}
 }
