@@ -44,41 +44,50 @@ public class LZW {
 		String output = "";
 		String buffer;
 		int wordSize;
-		int i,j;
+		int i,j,k=1;
+		
+		dictionary.add("#");
 		
 		input = readFile(args[0]);
 		
 		for(i=0;i<26;i++)
 			dictionary.add(String.valueOf((char)(i+65)));
-		
+
 		i=0;
-		//System.out.println(input.length());
+		
 		while(i<input.length()) {
 			wordSize =(int) Math.ceil( Math.log(dictionary.size()) / Math.log(2)) ;
 			j = i;
 			buffer = "";
 
 			while(j<input.length()) {
-				//System.out.println("hey"+j);
+		
 				if(!dictionary.contains(buffer + input.charAt(j)))
 					break;
 				buffer = buffer + input.charAt(j);
 				j =j +1;
 			}
 
-			if(j>=input.length())
-				break;
-			
-			//System.out.print(dictionary.indexOf(buffer)+1);
-			//System.out.print(' ');
-			//System.out.println(buffer + input.charAt(j));
 			output += toBinary(dictionary.indexOf(buffer),wordSize);
-			//System.out.println(toBinary(dictionary.indexOf(buffer) +1,wordSize));
-			dictionary.add(buffer + input.charAt(j));
-
+			if (j<input.length())
+				dictionary.add(buffer + input.charAt(j));
 			i = j;
 
 		}
+		
+		int inputLength = input.length();
+		
+		int inputSymbolSize = (int) Math.ceil( Math.log(26) / Math.log(2));
+
+		int inputSize = inputSymbolSize*inputLength;
+
+		System.out.println("Unencoded length = " + inputLength + " * " + inputSymbolSize + " = " + inputSize );
+		
+		System.out.println("Encoded length = " + output.length());
+		
+		System.out.println("Percentage compression achieved = " + ((inputSize - output.length())*1.0 / inputSize) *100 );
+
 		System.out.println(output);
+			
 	}
 }
