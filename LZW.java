@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,30 +15,8 @@ public class LZW {
 		}
 		return new StringBuilder(res).reverse().toString();
 	}
-	
-	public static String readFile(String filename){
-		String inputStr="";
-		String currentLine;
-		BufferedReader br=null;
-		try{
-			br=new BufferedReader(new FileReader(filename));
-			while((currentLine=br.readLine())!=null){
-				inputStr=inputStr+currentLine;
-			}
-		} catch (IOException e) {
-			System.out.println("Error in file reading!");
-		}
-		finally{
-			try {
-				br.close();
-			} catch (IOException e) {
-				System.out.println("Error closing!");
-			}
-		}
-		return inputStr;
-	}
 
-	public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 		List dictionary = new ArrayList();
 		String input = "";
 		String output = "";
@@ -50,7 +26,7 @@ public class LZW {
 		
 		dictionary.add("#");
 		
-		input = readFile(args[0]);
+		input = FileReader.readFile(args[0]);
 		
 		for(i=0;i<26;i++)
 			dictionary.add(String.valueOf((char)(i+65)));
