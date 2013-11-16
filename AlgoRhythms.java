@@ -1,17 +1,25 @@
 public class AlgoRhythms {
     public static void main(String[] args) {
+    	long executionTime;
         String input = FileReader.readFile(args[0]);
         Huffman huffman = new Huffman();
+        executionTime = System.currentTimeMillis();
         String huffmanCompression = huffman.compress(input);
+        executionTime = System.currentTimeMillis() - executionTime;
         System.out.println("Huffman");
         System.out.println("_________________");
         compressionPercentage(input, huffmanCompression);
+        System.out.println("Execution Time: " + executionTime);
 
         LZW lzw = new LZW();
+        executionTime = System.currentTimeMillis();
         String lzwCompression = lzw.compress(input);
+        executionTime = System.currentTimeMillis() - executionTime;
         System.out.println("LZW");
         System.out.println("_________________");
+        //System.out.println(lzw.decompress(lzwCompression));
         compressionPercentage(input, lzwCompression);
+        System.out.println("Execution Time: " + executionTime);
     }
 
     private static void compressionPercentage(String input, String output) {

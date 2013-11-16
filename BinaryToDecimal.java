@@ -1,5 +1,3 @@
-package myclass.sample;
-
 public class BinaryToDecimal {
 
 	public static Integer binaryToDecimal(String inputStr){
