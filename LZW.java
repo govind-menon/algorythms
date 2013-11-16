@@ -44,5 +44,36 @@ public class LZW {
 		return output;
 			
 	}
+    
+    public String decompress(String inputStr)
+	{
+		String decompressStr = "";
+		
+		List<String> dict = new ArrayList<String>();
+		dict.add("#");
+		
+		for(int i=0;i<=255;i++)
+			dict.add(String.valueOf((char)(i)));
+		
+		int inputSize = (int)Math.ceil(Math.log(dict.size())/Math.log(2));
+		int j=0,index=0;
+		String output1="",output2="",output="",binary="";
+				
+		while(j < inputStr.length())
+		{
+			binary = inputStr.substring(j, j + inputSize);
+			index = BinaryToDecimal.binaryToDecimal(binary);
+			output2 = dict.get(index);
+			output = output + output2;
+			j = j + inputSize;
+			if(!dict.contains(output1+output2)){
+				dict.add(output1+output2);
+				if(dict.size()>Math.pow(2,inputSize)-1)
+					inputSize = inputSize + 1;
+			}
+			output1 = output2;
+		}
+		return decompressStr;
+	}
 
 }
