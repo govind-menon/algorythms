@@ -3,6 +3,7 @@ public class AlgoRhythms {
     	long executionTime;
         String input = FileReader.readFile(args[0]);
         Huffman huffman = new Huffman();
+        Wordiness wordiness = new Wordiness();
         executionTime = System.currentTimeMillis();
         String huffmanCompression = huffman.compress(input);
         executionTime = System.currentTimeMillis() - executionTime;
@@ -20,6 +21,7 @@ public class AlgoRhythms {
         //System.out.println(lzw.decompress(lzwCompression));
         compressionPercentage(input, lzwCompression);
         System.out.println("Execution Time: " + executionTime);
+        System.out.println("Wordiness Parameter: " + wordiness.calculateWordinessParameter(input));
     }
 
     private static void compressionPercentage(String input, String output) {
