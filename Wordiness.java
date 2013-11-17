@@ -12,8 +12,7 @@ public class Wordiness {
 		List dictionary = new ArrayList();
 		List wordCount = new ArrayList();
 		String output = "", buffer;
-		long i=0,j, wordSize;
-		int total=0,k,usedWordsCount,q;
+		long i=0,j, wordSize,k,q,total=0,usedWordsCount;
 
 		for(k=0;k<256;k++) {
             dictionary.add(String.valueOf((char)(k)));
@@ -34,6 +33,7 @@ public class Wordiness {
 			}
 
 			output += toBinary(dictionary.indexOf(buffer),wordSize);
+			if(buffer != "")
 			wordCount.set(dictionary.indexOf(buffer),(int)wordCount.get(dictionary.indexOf(buffer))+1);			
 			if (j<input.length()) {
 				dictionary.add(buffer + input.charAt((int)j));
@@ -45,9 +45,9 @@ public class Wordiness {
 		usedWordsCount = 0;
 		//System.out.println(wordCount.size());
 		for(k=0;k<wordCount.size();k++) {
-			q = (int)wordCount.get(k);
+			q = (int)wordCount.get((int)k);
 			if (q>0) {
-			total+= q*(((String)dictionary.get(k)).length());
+			total+= q*(((String)dictionary.get((int)k)).length());
 			usedWordsCount++;
 		}
 		}
