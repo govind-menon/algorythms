@@ -22,7 +22,7 @@ public class Runner {
 		
 		for(i=0;i<files.length;i++) {
 			
-			
+			System.out.println(files[i].getAbsolutePath());
 			input = FileReader.readFile(files[i].getAbsolutePath());
 			wordinessParameter = wordiness.calculateWordinessParameter(input);
 
@@ -53,7 +53,14 @@ public class Runner {
 			out.print(output.length()+",");
 			out.print(executionTime+","); 
 			out.print(wordinessParameter+","); 
-			out.println(((inputSize - output.length())*1.0 / inputSize) *100 );	
+			out.println(((inputSize - output.length())*1.0 / inputSize) *100 );
+
+			System.out.print(inputSize + "," );
+			System.out.print(output.length()+",");
+			System.out.print(executionTime+","); 
+			System.out.print(wordinessParameter+","); 
+			System.out.println(((inputSize - output.length())*1.0 / inputSize) *100 );
+				
 			out.close();
 		} catch (IOException e) {
 		}
